@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(mongod:*)",
+      "Bash(where:*)",
+      "Bash(sc query:*)",
+      "Bash(npm start)",
+      "Bash(npm run dev:*)",
+      "Bash(node seedUsers.js:*)",
+      "Bash(node clearMessages.js:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(node:*)",
+      "Bash(mongosh rtca:*)",
+      "Bash(mongo rtca:*)",
+      "Bash(taskkill /F /PID 17012)",
+      "Bash(taskkill //F //PID 17012)",
+      "Bash(taskkill //F //PID 10340)",
+      "Bash(del:*)",
+      "Bash(taskkill //F //PID 21848)",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)",
+      "Bash(touch:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
