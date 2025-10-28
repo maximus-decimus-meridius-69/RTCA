@@ -9,14 +9,34 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check if user is logged in
-    const token = localStorage.getItem('token');
-    const storedUser = localStorage.getItem('user');
+    const initAuth = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const storedUser = localStorage.getItem('user');
 
-    if (token && storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+        if (token && storedUser) {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+        }
+      } catch (error) {
+        console.error('Error restoring auth:', error);
+        // Clear corrupted data
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    setLoading(false);
+    // Add timeout fallback in case something hangs
+    const timeout = setTimeout(() => {
+      console.warn('Auth initialization timeout, forcing loading to false');
+      setLoading(false);
+    }, 3000);
+
+    initAuth().then(() => clearTimeout(timeout));
+
+    return () => clearTimeout(timeout);
   }, []);
 
   const register = async (userData) => {

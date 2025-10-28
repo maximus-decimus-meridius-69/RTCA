@@ -13,18 +13,21 @@ const PrivateRoute = ({ children }) => {
     return (
       <div style={{
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
         background: 'var(--dark-bg)',
-        color: 'var(--text-primary)'
+        color: 'var(--text-primary)',
+        gap: '1rem'
       }}>
         <div className="spinner"></div>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Loading...</p>
       </div>
     );
   }
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
 const PublicRoute = ({ children }) => {
