@@ -40,6 +40,22 @@ app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/message-requests', messageRequestRoutes);
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'RTCA API Server',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      users: '/api/users',
+      messages: '/api/messages',
+      requests: '/api/message-requests'
+    }
+  });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
