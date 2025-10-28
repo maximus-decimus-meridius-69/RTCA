@@ -312,10 +312,11 @@ const ChatWindow = ({ selectedUser, onBack }) => {
   const handleViewSharedMedia = async () => {
     try {
       const response = await messageAPI.getSharedMedia(selectedUser._id);
-      setSharedMedia(response.data);
+      setSharedMedia(response.data.messages || response.data || []);
       setShowSharedMedia(true);
     } catch (error) {
       console.error('Load shared media error:', error);
+      alert('Failed to load shared media');
     }
   };
 
@@ -532,13 +533,13 @@ const ChatWindow = ({ selectedUser, onBack }) => {
                 sharedMedia.map((media) => (
                   <div key={media._id} className="media-item">
                     {media.messageType === 'image' && (
-                      <img src={`http://localhost:5000${media.fileUrl}`} alt={media.fileName} />
+                      <img src={`${import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000'}${media.fileUrl}`} alt={media.fileName} />
                     )}
                     {media.messageType === 'video' && (
-                      <video src={`http://localhost:5000${media.fileUrl}`} controls />
+                      <video src={`${import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000'}${media.fileUrl}`} controls />
                     )}
                     {media.messageType === 'audio' && (
-                      <audio src={`http://localhost:5000${media.fileUrl}`} controls />
+                      <audio src={`${import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000'}${media.fileUrl}`} controls />
                     )}
                   </div>
                 ))
